@@ -2,8 +2,12 @@
 version: '3.5'
 services:
   connect:
-    volumes:
-      - $HOME/.aws/$AWS_CREDENTIALS_FILE_NAME:$CONNECT_CONTAINER_HOME_DIR/.aws/credentials
-      - $HOME/.aws/config:$CONNECT_CONTAINER_HOME_DIR/.aws/config
+#    volumes:
+#      - $HOME/.aws/$AWS_CREDENTIALS_FILE_NAME:$CONNECT_CONTAINER_HOME_DIR/.aws/credentials
+#      - $HOME/.aws/config:$CONNECT_CONTAINER_HOME_DIR/.aws/config
     environment:
       CONNECT_PLUGIN_PATH: /usr/share/confluent-hub-components/confluentinc-kafka-connect-s3
+      AWS_ACCESS_KEY_ID: <Get credentials from vault kv get -field=script v1/ci/kv/connect/s3_sink_access_test>
+      AWS_SECRET_ACCESS_KEY: <Get credentials from vault kv get -field=script v1/ci/kv/connect/s3_sink_access_test>
+      AWS_BUCKET_NAME: s3-access-test-after
+      AWS_REGION: us-west-2
